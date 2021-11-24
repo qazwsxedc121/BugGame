@@ -8,7 +8,6 @@ extents = Vector2( 8, 8 )
 [node name="Block" type="Node2D"]
 
 [node name="icon" type="Sprite" parent="."]
-modulate = Color( 0.831373, 0.196078, 0.509804, 1 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 1, 17, 16 )

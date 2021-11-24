@@ -6,6 +6,8 @@ export(float) var gravity = 100
 
 var velocity : Vector2
 
+var overlaped_area = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
@@ -17,6 +19,11 @@ func _physics_process(delta):
 	axis.y = Input.get_action_strength("ui_down") - Input.get_action_strength("ui_up")
 	
 	var jump_pressed = Input.is_action_just_pressed("jump")
+	
+	if axis.x < -0.1:
+		$Sprite.flip_h = true
+	elif axis.x > 0.1:
+		$Sprite.flip_h = false
 	
 	velocity.x = axis.x * move_speed
 	velocity.y += gravity
@@ -30,7 +37,15 @@ func _physics_process(delta):
 		$Sprite.play("run")
 	else:
 		$Sprite.play("idle")
-		
-	if get_parent().get_node("Area2D").overlaps_body(self):
-		if Input.is_action_just_pressed("jump"):
-			print("yes")
+	
+	if Input.is_action_just_pressed("interact"):
+		if overlaped_area.size() > 0:
+			overlaped_area[0].interact()
+
+func onAreaEnter(area):
+	if -1 == overlaped_area.find(area):
+		overlaped_area.append(area)
+
+func onAreaExit(area):
+	if -1 != overlaped_area.find(area):
+		overlaped_area.erase(area)
