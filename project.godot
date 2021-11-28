@@ -11,8 +11,12 @@ config_version=4
 [application]
 
 config/name="Bug Game"
-run/main_scene="res://Level.tscn"
+run/main_scene="res://scenes/Start.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+Global="*res://Global.gd"
 
 [input]
 

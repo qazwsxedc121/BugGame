@@ -33,17 +33,16 @@ func _ready():
 
 func set_current_debug(enemy):
 	self.visible = true
+	for key in enemy.now_state.keys():
+		options[key].select(enemy.now_state[key])
 	current_debug = enemy
 	current_debug.freeze = true
 
 func debug_done():
-	var cfgspeed = options["Speed"].selected;
-	if cfgspeed == 0:
-		current_debug.move_speed = 0
-	elif cfgspeed == 1:
-		current_debug.move_speed = 100
-	else:
-		current_debug.move_speed = 200
+	for k in options.keys():
+		var cfgspeed = options[k].selected;
+		current_debug.setcfg(k, cfgspeed)
+
 	current_debug.freeze = false
 	self.visible = false
 	
